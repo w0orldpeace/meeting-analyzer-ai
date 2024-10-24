@@ -1,6 +1,6 @@
+// frontend/src/components/MeetingAnalyzer.js
 import React, { useState } from 'react';
 import { Upload, FileText, Clock, Grid } from 'lucide-react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
 const MeetingAnalyzer = () => {
   const [files, setFiles] = useState([]);
@@ -47,7 +47,7 @@ const MeetingAnalyzer = () => {
             }`}
             onClick={() => setActiveView('upload')}
           >
-            <Upload size={20} />
+            <Upload className="w-5 h-5" />
             <span>Upload</span>
           </button>
           <button
@@ -56,7 +56,7 @@ const MeetingAnalyzer = () => {
             }`}
             onClick={() => setActiveView('timeline')}
           >
-            <Clock size={20} />
+            <Clock className="w-5 h-5" />
             <span>Timeline</span>
           </button>
           <button
@@ -65,39 +65,34 @@ const MeetingAnalyzer = () => {
             }`}
             onClick={() => setActiveView('matrix')}
           >
-            <Grid size={20} />
+            <Grid className="w-5 h-5" />
             <span>Decision Matrix</span>
           </button>
         </div>
       </div>
 
       {activeView === 'upload' && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Upload Documents</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-              <input
-                type="file"
-                multiple
-                onChange={handleFileUpload}
-                className="hidden"
-                id="file-upload"
-              />
-              <label
-                htmlFor="file-upload"
-                className="cursor-pointer flex flex-col items-center"
-              >
-                <FileText size={48} className="text-gray-400 mb-4" />
-                <span className="text-lg mb-2">Drop files here or click to upload</span>
-                <span className="text-sm text-gray-500">
-                  Support for PDF, DOC, and TXT files
-                </span>
-              </label>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+            <input
+              type="file"
+              multiple
+              onChange={handleFileUpload}
+              className="hidden"
+              id="file-upload"
+            />
+            <label
+              htmlFor="file-upload"
+              className="cursor-pointer flex flex-col items-center"
+            >
+              <FileText className="w-12 h-12 text-gray-400 mb-4" />
+              <span className="text-lg mb-2">Drop files here or click to upload</span>
+              <span className="text-sm text-gray-500">
+                Support for PDF, DOC, and TXT files
+              </span>
+            </label>
+          </div>
+        </div>
       )}
     </div>
   );
