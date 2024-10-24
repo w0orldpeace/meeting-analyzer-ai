@@ -6,13 +6,20 @@ __pycache__/
 .env.local
 
 # Build files
-/frontend/build/
-/frontend/dist/
+.next/
+out/
+build/
+dist/
 
-# IDE files
-.idea/
-.vscode/
-
-# System Files
+# System files
 .DS_Store
-Thumbs.db
+*.pem
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env*.local
+.vercel
