@@ -1,1 +1,18 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.py[cod]
+.env
+.env.local
 
+# Build files
+/frontend/build/
+/frontend/dist/
+
+# IDE files
+.idea/
+.vscode/
+
+# System Files
+.DS_Store
+Thumbs.db
