@@ -1,0 +1,17 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "cd frontend && npm run build && npm start"
+healthcheckPath = "/api/health"
+restartPolicyType = "on-failure"
+
+[[services]]
+name = "frontend"
+dockerfile = "frontend/Dockerfile"
+port = 3000
+
+[[services]]
+name = "backend"
+dockerfile = "backend/Dockerfile"
+port = 8000
