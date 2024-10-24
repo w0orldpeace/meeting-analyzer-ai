@@ -1,8 +1,8 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from anthropic import Anthropic
 from typing import List
 import os
+import requests
 
 app = FastAPI()
 
@@ -14,8 +14,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-anthropic = Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
-
 @app.get("/api/health")
 async def health_check():
     return {"status": "healthy"}
@@ -23,32 +21,32 @@ async def health_check():
 @app.post("/api/analyze")
 async def analyze_documents(files: List[UploadFile] = File(...)):
     try:
-        combined_content = ""
+        # Simple document processing
+        documents = []
         for file in files:
             content = await file.read()
-            # Only process text files to reduce memory usage
             if file.content_type.startswith('text/'):
-                combined_content += content.decode() + "\n\n"
-            else:
-                combined_content += f"[File: {file.filename}]\n\n"
+                documents.append({
+                    'name': file.filename,
+                    'content': content.decode()
+                })
         
-        response = await anthropic.messages.create(
-            model="claude-3-sonnet-20240229",
-            max_tokens=1000,
-            messages=[{
-                "role": "user",
-                "content": f"Analyze these documents briefly:\n\n{combined_content}"
-            }]
-        )
-        
+        # Mock analysis response
         return {
             "timeline": [
-                {"date": "2024-01-01", "event": "Example Event", "type": "meeting"}
+                {
+                    "date": "2024-01-01",
+                    "event": f"Processed {len(documents)} documents",
+                    "type": "analysis"
+                }
             ],
             "decision_matrix": [
                 {
-                    "option": "Option A",
-                    "criteria": {"cost": 8, "impact": 7, "feasibility": 9}
+                    "option": "Document Analysis",
+                    "criteria": {
+                        "files_processed": len(documents),
+                        "success": True
+                    }
                 }
             ]
         }
